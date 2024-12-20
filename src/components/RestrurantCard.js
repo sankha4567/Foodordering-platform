@@ -22,15 +22,16 @@ import { CDN_URL } from "../utils/constants";
 //   );
 // };
 const RestrurantCard = (props) => {
-  console.log("dc");
+  // console.log("dc");
   const { resData } = props;
-  console.log(resData); 
-  console.log(resData?.card?.card?.info); 
+  // console.log(resData); 
+  // console.log(resData?.card?.card?.info); 
 
 
-  const { cloudinaryImageId, name, cuisines, avgRating, costForTwo, sla } =
-    resData?.card?.card?.info;
-    console.log(resData?.card?.card?.info);
+  const {id,cloudinaryImageId, name, cuisines, avgRating, costForTwo, sla } =
+  resData?.info;
+    // console.log(resData?.card?.card?.info);
+    // console.log(id);
   return (
     <div className="res-card" data-testid="resCard">
       <img
