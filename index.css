@@ -29,6 +29,7 @@
   border-radius: 10px;
   text-align: center;
   margin: 5px;
+  text-decoration: none;
 }
 .res-card:hover{
   border: 2px solid black;
@@ -92,4 +93,8 @@ border: 1px solid black;
 .search-box{
   margin-right: 7px;
   height: 18px;
+}
+.user-card{
+  padding: 10px;
+  border: 1px solid black;
 }

@@ -2,6 +2,7 @@ import RestrurantCard from "./RestrurantCard.js";
 import resObj from "../utils/mockdata.js";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
+import { Link } from "react-router-dom";
 function getRandomNumber() {
   return Math.floor(Math.random() * 1000) + 1;
 }
@@ -21,7 +22,7 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    // console.log("gb");
+    console.log("gybbbbk");
     //  console.log(
     //    json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
@@ -50,6 +51,7 @@ const Body = () => {
   return listofRestaurants?.length === 0 ? (
   <Shimmer/>
   ) : (
+    
     <div className="body">
       <div className="filter">
         <div className="search">
@@ -89,11 +91,13 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurant?.map((restaurant) => (
-          <RestrurantCard
-            // id={getRandomNumber()}
+          <Link 
+          key={restaurant.info.id}
+          to={"/restaurants/" + restaurant.info.id}><RestrurantCard
+             
             
             resData={restaurant} 
-          />
+          /> </Link>
         ))}
       </div>
     </div>

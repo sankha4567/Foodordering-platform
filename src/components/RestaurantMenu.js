@@ -1,59 +1,80 @@
-
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { dummydata } from "./dummydata";
+import { useParams } from "react-router-dom";
 const RestaurantMenu = () => {
+  const [resInfo, setResInfo] = useState(null);
+  // const params=useParams()  ->params is an object which provides resId.for that reason we are destructing on fly
+  const { resId } = useParams();
+   console.log(resId);
+  useEffect(() => {
+    setResInfo(dummydata?.data);
+    // getData();
+  }, []);
 
-const [resInfo,setResInfo] = useState({});
-   useEffect(
-    ()=>{
-    fetchMenu();
-    },[]
-   );
+
   //  export const FETCH_MENU_URL="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.572646&lng=88.36389500000001&restaurantId="
 
   // https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.5957689&lng=88.26363940000002&restaurantId=9866&submitAction=ENTER
-   const fetchMenu=async ()=>{
-    const data=await fetch("https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.5957689&lng=88.26363940000002&restaurantId=9866&submitAction=ENTER");
-    const json=await data.json();
-    // console.log("hi");
-    console.log(json);
-    setResInfo(json?.data);
-   };
- try {
-   const {name,
-     cuisines,
-     costForTwoMessage,
-     totalRatingsString,
-     avgRatingString,
-     areaName,
-     sla,
-     feeDetails} =resInfo?.cards[2]?.card?.card?.info;
-     console.log(name);
-     console.log(cuisines);
-     // console.log(cloudinaryImageId);
-     console.log(costForTwoMessage);
-     console.log(totalRatingsString);
-     console.log(avgRatingString);
-     console.log(feeDetails);
-    console.log(resInfo?.cards[2]);
- } catch (error) {
-  console.log(error);
- }
-  return resInfo === null? (
-  <Shimmer/> 
-  ) : (
-    <div className="menu">
-      <h1>{name}</h1> 
-      <h3>{cuisines?.join(",")}</h3>
-      <h3>{costForTwoMessage}</h3> 
 
-      <ul>
-        <li>Biriyani</li>
-        <li>Burgers</li>
-        <li>Diet Coke</li>
-      </ul>
-    </div>
-  );
+  // console.log(dummydata);
+
+  //  console.log(resInfo?.cards[2]?.card?.card?.info);
+  function keyfunc() {
+    return Math.random().toString(36).substring(2);
+  }
+  if (resInfo === null) {
+    return <Shimmer />;
+  }
+  try {
+    const {
+      name,
+      cuisines,
+      costForTwoMessage,
+      totalRatingsString,
+      avgRatingString,
+      areaName,
+      sla,
+      feeDetails,
+      cloudinaryImageId,
+    } = resInfo?.cards[2]?.card?.card?.info;
+
+    const { itemCards } =
+      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+        ?.card;
+    // console.log(itemCards);
+
+    //  console.log(name);
+    //  console.log(cuisines);
+    //  // console.log(cloudinaryImageId);
+    //  console.log(costForTwoMessage);
+    //  console.log(totalRatingsString);
+    //  console.log(avgRatingString);
+    //  console.log(feeDetails);
+
+    return (
+      <div className="menu">
+        <h1>{name}</h1>
+        <p>
+          {cuisines?.join(",")} - {costForTwoMessage}
+        </p>
+
+        <h2>Menu</h2>
+        <ul>
+          {itemCards.map(function (item) {
+            return (
+              <li key={keyfunc()}>
+                {item.card.info.name} - Rs.{item.card.info.price / 100}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  } catch (error) {
+    console.log(error);
+    return <div>Error loading menu</div>;
+  }
 };
 
 export default RestaurantMenu;
