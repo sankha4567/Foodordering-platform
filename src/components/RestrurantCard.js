@@ -33,13 +33,16 @@ const RestrurantCard = (props) => {
     // console.log(resData?.card?.card?.info);
     // console.log(id);
   return (
-    <div className="res-card" data-testid="resCard">
+   
+
+    
+    <div className="m-4 p-4 w-[250px] border border-solid border-black h-[360px] bg-orange-100 rounded-lg hover:bg-gray-400" data-testid="resCard">
       <img
-        style={{ width: "100%", height: "140px" }}
+        className="h-36 w-full rounded-lg"
         alt="food-logo"
         src={CDN_URL + cloudinaryImageId}
       />
-      <h3>{name}</h3>
+      <h3 className="font-bold py-2.5 px-2.5 text-lg">{name}</h3>
       <h4>{cuisines.join(", ")}</h4>
       <h4>
         <span>★ {avgRating} </span> &nbsp; Ratings
@@ -47,6 +50,7 @@ const RestrurantCard = (props) => {
       <h4>{costForTwo}</h4>
       <h4>{sla?.slaString}</h4>
     </div>
+    
   );
 };
 export default RestrurantCard;

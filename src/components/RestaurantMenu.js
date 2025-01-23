@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { dummydata } from "./dummydata";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
+
+  // const [resInfo, setResInfo] = useState(null);
   // const params=useParams()  ->params is an object which provides resId.for that reason we are destructing on fly
   const { resId } = useParams();
    console.log(resId);
-  useEffect(() => {
-    setResInfo(dummydata?.data);
-    // getData();
-  }, []);
+   const resInfo=useRestaurantMenu(resId);
+  // useEffect(() => {
+  //   setResInfo(dummydata?.data);
+  //   // getData();
+  // }, []);
 
 
   //  export const FETCH_MENU_URL="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.572646&lng=88.36389500000001&restaurantId="
