@@ -1,3 +1,7 @@
+// resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+// ?.card;
+
+
 export const dummydata={
   "statusCode": 0,
   "data": {

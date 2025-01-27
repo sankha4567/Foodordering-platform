@@ -25,7 +25,7 @@ import Shimmer from "./components/Shimmer.js";
 const Grocery = lazy(() => import("./components/Grocery.js"));
 const About=lazy(()=>import("./components/About.js"));
 const AppLayout = () => {
-  // console.log("hello world");
+ console.log("hello from applayout");
   return (
     <React.StrictMode>
       <div className="app">

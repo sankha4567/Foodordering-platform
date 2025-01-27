@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
-
+import { bodydata } from "./Bodymock.js";
 function getRandomNumber() {
   return Math.floor(Math.random() * 1000) + 1;
 }
@@ -22,21 +22,27 @@ const Body = () => {
   },[]);
   
   const fetchData = async ()=>{
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
+    // const data = await fetch(
+    //   // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      
+    // );
+    // const json = await data.json();
     // console.log("gybbbbk");
     //  console.log(
     //    json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
     // );
-    
+    const json=bodydata;
     setListofRestaurants(
       // optional chaining:-
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      // json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-    setFilteredRestaurant( json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredRestaurant( 
+      // json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+
+
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   }
 // const listofRestaurant=useRestaurantList();
 // setListofRestaurants(listofRestaurant);
@@ -95,13 +101,13 @@ else{
           className="filter-btn px-4 py-2 m-4 bg-gray-100 rounded-lg"
           onClick={() => {
             // i update it was listofRestaurants to filteredRestaurant if i do it top rated to search wroking and vice versa.but when we do search then click top rated fine working.but when we empty the search box and search not the updation happens.
-            const filteredlist = listofRestaurants.filter(
+            const filteredlist = listofRestaurants?.filter(
               (res) => res.info.avgRating > 4.3
             );
              console.log(filteredlist);
-            setListofRestaurants(filteredlist);
+            // setListofRestaurants(filteredlist);
             //extra line
-            // setFilteredRestaurant(filteredlist);
+             setFilteredRestaurant(filteredlist);
           }}
           // onMouseMove={() => {
           //   console.log("hey you");

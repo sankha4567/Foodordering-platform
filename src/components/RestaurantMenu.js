@@ -3,18 +3,19 @@ import Shimmer from "./Shimmer";
 import { dummydata } from "./dummydata";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
-const RestaurantMenu = () => {
+
+const RestaurantMenu = async() => {
 
   // const [resInfo, setResInfo] = useState(null);
   // const params=useParams()  ->params is an object which provides resId.for that reason we are destructing on fly
   const { resId } = useParams();
    console.log(resId);
-   const resInfo=useRestaurantMenu(resId);
+   const resInfo=await useRestaurantMenu(resId);
   // useEffect(() => {
   //   setResInfo(dummydata?.data);
   //   // getData();
   // }, []);
-
+ console.log(resInfo + "printed");
 
   //  export const FETCH_MENU_URL="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.572646&lng=88.36389500000001&restaurantId="
 
@@ -29,7 +30,7 @@ const RestaurantMenu = () => {
   if (resInfo === null) {
     return <Shimmer />;
   }
-  try {
+ 
     const {
       name,
       cuisines,
@@ -40,12 +41,11 @@ const RestaurantMenu = () => {
       sla,
       feeDetails,
       cloudinaryImageId,
-    } = resInfo?.cards[2]?.card?.card?.info;
-
+    } = resInfo?.card?.card?.info;
+   //bugggg
     const { itemCards } =
-      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-        ?.card;
-    // console.log(itemCards);
+      resInfo?.card?.itemCards;
+    console.log(itemCards);
 
     //  console.log(name);
     //  console.log(cuisines);
@@ -58,26 +58,23 @@ const RestaurantMenu = () => {
     return (
       <div className="menu">
         <h1>{name}</h1>
-        <p>
+        {/* <p>
           {cuisines?.join(",")} - {costForTwoMessage}
         </p>
 
         <h2>Menu</h2>
         <ul>
-          {itemCards.map(function (item) {
+          {itemCards?.map(function (item) {
             return (
               <li key={keyfunc()}>
-                {item.card.info.name} - Rs.{item.card.info.price / 100}
+                {item?.card?.info?.name} - Rs{Number(item?.card?.info?.price / 100) || 200}
               </li>
             );
           })}
-        </ul>
+        </ul> */}
       </div>
     );
-  } catch (error) {
-    console.log(error);
-    return <div>Error loading menu</div>;
-  }
+ 
 };
 
 export default RestaurantMenu;
