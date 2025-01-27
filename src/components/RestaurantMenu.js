@@ -3,14 +3,15 @@ import Shimmer from "./Shimmer";
 import { dummydata } from "./dummydata";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import { json } from "express";
 
-const RestaurantMenu = async() => {
+const RestaurantMenu = () => {
 
   // const [resInfo, setResInfo] = useState(null);
   // const params=useParams()  ->params is an object which provides resId.for that reason we are destructing on fly
   const { resId } = useParams();
    console.log(resId);
-   const resInfo=await useRestaurantMenu(resId);
+   const resInfo=JSON.parse(useRestaurantMenu(resId));
   // useEffect(() => {
   //   setResInfo(dummydata?.data);
   //   // getData();
@@ -58,7 +59,7 @@ const RestaurantMenu = async() => {
     return (
       <div className="menu">
         <h1>{name}</h1>
-        {/* <p>
+         <p>
           {cuisines?.join(",")} - {costForTwoMessage}
         </p>
 
@@ -67,11 +68,11 @@ const RestaurantMenu = async() => {
           {itemCards?.map(function (item) {
             return (
               <li key={keyfunc()}>
-                {item?.card?.info?.name} - Rs{Number(item?.card?.info?.price / 100) || 200}
+                {item?.card?.info?.name} 
               </li>
             );
           })}
-        </ul> */}
+        </ul> 
       </div>
     );
  

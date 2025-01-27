@@ -14,7 +14,7 @@ const useRestaurantMenu = (resId) => {
 async function fetchData()  {
     try {
       const res = await fetch(
-        "http://localhost:1234/api/v1/restaurants/" + resId
+        "http://localhost:7000/api/v1/restaurants/" + resId
       );
 
       const json = await res.json();
