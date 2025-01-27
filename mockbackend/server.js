@@ -7,14 +7,14 @@ const PORT = 7000;
 console.log("1");
 console.log(users);
 app.use(cors({
-  origin: '*', // Allow all origins
+  origin: '*',
 }));
 app.get("/api/v1/users", (req, res) => {
   return res.json(users);
 });
 app.get("/api/v1/restaurants/:resId", async (req, res) => {
   const {resId} =req.params;
-  console.log("2");
+  console.log("from server /restaurants/:resId");
   console.log(users);
   const restaurant=users.restuarants.find(user => String(user.card.card.info.id) === String(resId));
   if(restaurant){
