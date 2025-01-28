@@ -14,11 +14,12 @@ app.get("/api/v1/users", (req, res) => {
 });
 app.get("/api/v1/restaurants/:resId", async (req, res) => {
   const {resId} =req.params;
-  console.log("2");
+  console.log("from server /restaurants/:resId");
   console.log(users);
   const restaurant=users.restuarants.find(user => String(user.card.card.info.id) === String(resId));
   if(restaurant){
     return res.json(JSON.stringify(restaurant));
+    
     
   }
   else{

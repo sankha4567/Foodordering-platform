@@ -27,13 +27,13 @@ const About=lazy(()=>import("./components/About.js"));
 const AppLayout = () => {
  console.log("hello from applayout");
   return (
-    <React.StrictMode>
+    <>
       <div className="app">
         <Header />
         <Outlet />
         {/* outlet will be replaced as base of path */}
       </div>
-    </React.StrictMode>
+    </>
   );
 };
 const appRouter = createBrowserRouter([

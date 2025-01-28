@@ -194,8 +194,9 @@
                     },
                     "analytics": {}
                 },
-                "itemCards": [
-                    {
+                "itemCards": {
+                   
+                    "card1":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -529,8 +530,9 @@
                             "analytics": {},
                             "hideRestaurantDetails": true
                         }
-                    },
-                    {
+                    }
+                    ,
+                   "card2":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -703,8 +705,9 @@
                             "analytics": {},
                             "hideRestaurantDetails": true
                         }
-                    },
-                    {
+                    }
+                    ,
+                    "card3":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -1035,7 +1038,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card4":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -1370,7 +1373,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card5":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -1705,7 +1708,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card6":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -2040,7 +2043,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card7":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -2214,7 +2217,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card8":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -2549,7 +2552,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card9":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -2884,7 +2887,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card10":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -3219,7 +3222,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card11":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -3554,7 +3557,7 @@
                             "hideRestaurantDetails": true
                         }
                     },
-                    {
+                    "card12":{
                         "card": {
                             "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
                             "info": {
@@ -3889,7 +3892,8 @@
                             "hideRestaurantDetails": true
                         }
                     }
-                ]
+                
+                }
             }
         },
         {

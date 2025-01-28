@@ -1,34 +1,29 @@
-import { useEffect, useState } from "react";
+
 import Shimmer from "./Shimmer";
 import { dummydata } from "./dummydata";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
-import { json } from "express";
+
 
 const RestaurantMenu = () => {
 
-  // const [resInfo, setResInfo] = useState(null);
-  // const params=useParams()  ->params is an object which provides resId.for that reason we are destructing on fly
+ 
   const { resId } = useParams();
    console.log(resId);
-   const resInfo=JSON.parse(useRestaurantMenu(resId));
+  
+   let dataReceived = useRestaurantMenu(resId);
+  const resInfo=JSON.parse(dataReceived);
   // useEffect(() => {
   //   setResInfo(dummydata?.data);
   //   // getData();
   // }, []);
- console.log(resInfo + "printed");
+  console.log(resId+" passed to hook");
+  console.log(resInfo?.card);
+  console.log(typeof resInfo);
 
-  //  export const FETCH_MENU_URL="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.572646&lng=88.36389500000001&restaurantId="
-
-  // https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.5957689&lng=88.26363940000002&restaurantId=9866&submitAction=ENTER
-
-  // console.log(dummydata);
-
-  //  console.log(resInfo?.cards[2]?.card?.card?.info);
-  function keyfunc() {
-    return Math.random().toString(36).substring(2);
-  }
-  if (resInfo === null) {
+  console.log('printed inside restaurant menu');
+ 
+  if (!resInfo ) {
     return <Shimmer />;
   }
  
@@ -43,18 +38,15 @@ const RestaurantMenu = () => {
       feeDetails,
       cloudinaryImageId,
     } = resInfo?.card?.card?.info;
+      console.log("name is:" , name);
+     console.log(cuisines);
    //bugggg
     const { itemCards } =
       resInfo?.card?.itemCards;
     console.log(itemCards);
 
-    //  console.log(name);
-    //  console.log(cuisines);
-    //  // console.log(cloudinaryImageId);
-    //  console.log(costForTwoMessage);
-    //  console.log(totalRatingsString);
-    //  console.log(avgRatingString);
-    //  console.log(feeDetails);
+   
+   
 
     return (
       <div className="menu">
@@ -65,17 +57,26 @@ const RestaurantMenu = () => {
 
         <h2>Menu</h2>
         <ul>
-          {itemCards?.map(function (item) {
-            return (
-              <li key={keyfunc()}>
-                {item?.card?.info?.name} 
-              </li>
-            );
-          })}
+              <li>
+                {itemCards?.card1?.card?.info?.name} </li>
+                <li> {itemCards?.card2?.card?.info?.name} </li>
+                <li>{itemCards?.card3?.card?.info?.name} </li>
+                <li>{itemCards?.card4?.card?.info?.name} </li>
+                <li>{itemCards?.card5?.card?.info?.name} </li>
+                <li>{itemCards?.card6?.card?.info?.name} </li>
+                <li>{itemCards?.card7?.card?.info?.name} </li>
+                <li>{itemCards?.card8?.card?.info?.name} </li>
+                <li>{itemCards?.card9?.card?.info?.name} </li>
+                <li>{itemCards?.card10?.card?.info?.name} </li>
+                <li>{itemCards?.card11?.card?.info?.name} </li>
+                <li>{itemCards?.card12?.card?.info?.name} </li>
+              
+          
+        
         </ul> 
       </div>
     );
  
-};
+}
 
 export default RestaurantMenu;
