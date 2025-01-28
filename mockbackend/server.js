@@ -7,7 +7,7 @@ const PORT = 7000;
 console.log("1");
 console.log(users);
 app.use(cors({
-  origin: '*', // Allow all origins
+  origin: '*',
 }));
 app.get("/api/v1/users", (req, res) => {
   return res.json(users);
