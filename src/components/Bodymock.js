@@ -1005,6 +1005,7 @@ export const bodydata = {
                       "locality": "Central Plaza, Kalina",
                       "areaName": "Santacruz East",
                       "costForTwo": "₹350 for two",
+                      "promoted": true,
                       "cuisines": [
                         "sandwich",
                         "Salads",
@@ -1015,11 +1016,12 @@ export const bodydata = {
                       "parentId": "2",
                       "avgRatingString": "4.3",
                       "totalRatingsString": "20K+",
+                      "slaString": "15-20 mins",
                       "sla": {
                         "deliveryTime": 17,
                         "lastMileTravel": 1.5,
                         "serviceability": "SERVICEABLE",
-                        "slaString": "15-20 mins",
+                        
                         "lastMileTravelString": "1.5 km",
                         "iconType": "ICON_TYPE_EMPTY"
                       },
@@ -1112,6 +1114,8 @@ export const bodydata = {
                       "locality": "Kalina Artista",
                       "areaName": "Santacruz East",
                       "costForTwo": "₹400 for two",
+                      "slaString": "15-20 mins",
+                      "promoted": true,
                       "cuisines": [
                         "Burgers",
                         "Beverages",
@@ -1122,11 +1126,12 @@ export const bodydata = {
                       "parentId": "630",
                       "avgRatingString": "4.5",
                       "totalRatingsString": "38K+",
+                      
                       "sla": {
                         "deliveryTime": 20,
                         "lastMileTravel": 1.2,
                         "serviceability": "SERVICEABLE",
-                        "slaString": "15-20 mins",
+                        
                         "lastMileTravelString": "1.2 km",
                         "iconType": "ICON_TYPE_EMPTY"
                       },
@@ -1224,8 +1229,10 @@ export const bodydata = {
                     "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/7/23/f33957b8-affc-4095-9f89-737d77c7ea47_586792.jpg",
                     "locality": "Malad West",
                     "areaName": "Malad West",
-                    "costForTwo": "20000",
+                    "costForTwo": "₹200 for two",
                     "costForTwoMessage": "₹200 for two",
+                    "slaString": "25-30 mins",
+                    "promoted": false,
                     "cuisines": [
                       "Bakery",
                       "Desserts"
@@ -1242,6 +1249,7 @@ export const bodydata = {
                     "parentId": "351103",
                     "avgRatingString": "4.6",
                     "totalRatingsString": "7.2K+ ratings",
+                    
                     "sla": {
                       "restaurantId": "586792",
                       "lastMileTravel": 1657.5,
@@ -1442,8 +1450,10 @@ export const bodydata = {
               "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/70645f2e-eb53-4984-8e87-884c72ff2e66_737925.JPG",
               "locality": "Borivali",
               "areaName": "Star Plaza",
-              "costForTwo": "40000",
+              "costForTwo": "₹400 for two",
               "costForTwoMessage": "₹400 for two",
+              "slaString": "15-20 mins",
+              "promoted": false,
               "cuisines": [
                 "Burgers",
                 "Fast Food"
@@ -1702,8 +1712,10 @@ export const bodydata = {
                     "cloudinaryImageId": "e0839ff574213e6f35b3899ebf1fc597",
                     "locality": "Kandivali East",
                     "areaName": "Kandivali East",
-                    "costForTwo": "25000",
+                    "costForTwo": "₹250 for two",
                     "costForTwoMessage": "₹250 for two",
+                    "slaString": "10-20 mins",
+                    "promoted": true,
                     "cuisines": [
                       "Chinese",
                       "Asian"
@@ -1893,8 +1905,10 @@ export const bodydata = {
                     "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/7/16/1625d09a-2bfa-49c0-8797-780c096367f1_9866.jpg",
                     "locality": "Thakur Village",
                     "areaName": "Kandivali East",
-                    "costForTwo": "30000",
+                    "costForTwo": "₹300 for two",
                     "costForTwoMessage": "₹300 for two",
+                    "slaString": "25-30 mins",
+                    "promoted": true,
                     "cuisines": [
                       "Pizzas"
                     ],
@@ -2155,8 +2169,10 @@ export const bodydata = {
                     "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/6/11/55d0daa1-ad2e-4893-be06-4709c5c68d49_37968.JPG",
                     "locality": "Growel's 101",
                     "areaName": "Kandivali East",
-                    "costForTwo": "35000",
+                    "costForTwo": "₹350 for two",
                     "costForTwoMessage": "₹350 for two",
+                    "slaString": "15-20 mins",
+                    "promoted": false,
                     "cuisines": [
                       "Burgers",
                       "American"
@@ -2416,8 +2432,10 @@ export const bodydata = {
                   "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/20/3a3c6aa6-8cce-4125-b3a1-97680f59d919_906763.jpg",
                   "locality": "Asha Nagar",
                   "areaName": "Kandivali East",
-                  "costForTwo": "20000",
+                  "costForTwo": "₹200 for two",
                   "costForTwoMessage": "₹200 for two",
+                  "slaString": "15-30 mins",
+                  "promoted": false,
                   "cuisines": [
                     "Burgers",
                     "American"

@@ -28,7 +28,7 @@ const RestrurantCard = (props) => {
   // console.log(resData?.card?.card?.info); 
 
 
-  const {id,cloudinaryImageId, name, cuisines, avgRating, costForTwo, sla } =
+  const {id,cloudinaryImageId, name, cuisines, avgRating, costForTwo, slaString } =
   resData?.info;
     // console.log(resData?.card?.card?.info);
     // console.log(id);
@@ -48,10 +48,22 @@ const RestrurantCard = (props) => {
         <span>★ {avgRating} </span> &nbsp; Ratings
       </h4>
       <h4>{costForTwo}</h4>
-      <h4>{sla?.slaString}</h4>
+      <h4>{slaString}</h4>
     </div>
     
   );
 };
+// higher order component
+// input rescard output promoted res card
+export const withPromotedLabel = (RestrurantCard) =>{
+  return (props)=>{
+    return (
+      <div>
+   <label className="absolute bg-black text-white m-2 p-2 rounded-lg">Promoted</label>
+   <RestrurantCard {...props}/>
+   </div>
+    );
+  }
+}
 export default RestrurantCard;
 

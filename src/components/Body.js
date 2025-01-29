@@ -1,4 +1,4 @@
-import RestrurantCard from "./RestrurantCard.js";
+import RestrurantCard,{withPromotedLabel} from "./RestrurantCard.js";
 import resObj from "../utils/mockdata.js";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
@@ -13,6 +13,7 @@ const Body = () => {
 
   const[filteredRestaurant,setFilteredRestaurant] = useState([]);
   const [searchText,setSearchText] = useState("");
+  const RestaurantCardPromoted= withPromotedLabel(RestrurantCard);
   // console.log("body rendered");
   // whenever state variable updates react triggers a reconciliation cycle(re renders the component)
   //never create usestate inside loops,ifelse.state variale must be created inside the functional component  at the top most level
@@ -47,6 +48,7 @@ const Body = () => {
 // const listofRestaurant=useRestaurantList();
 // setListofRestaurants(listofRestaurant);
 // setFilteredRestaurant(listofRestaurant);
+console.log(listofRestaurants);
 const onlineStatus=useOnlineStatus();
 
 if(onlineStatus === false){
@@ -122,11 +124,16 @@ else{
         {filteredRestaurant?.map((restaurant) => (
           <Link 
           key={restaurant.info.id}
-          to={"/restaurants/" + restaurant.info.id}><RestrurantCard
+          to={"/restaurants/" + restaurant.info.id}>
+            {
+              restaurant.info.promoted ?( <RestaurantCardPromoted resData={restaurant}/>):(<RestrurantCard
              
             
-            resData={restaurant} 
-          /> </Link>
+              resData={restaurant} 
+            /> )
+            }
+            
+            </Link>
         ))}
       </div>
     </div>
