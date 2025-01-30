@@ -3,10 +3,11 @@ import { dummydata } from "./dummydata";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategories from "./RestaurantCategories";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  
+  const[showIndex,setShowIndex]=useState(null);
   let dataReceived = useRestaurantMenu(resId);
   const resInfo=JSON.parse(dataReceived);
   // console.log(resId+" passed to hook");
@@ -21,6 +22,7 @@ const RestaurantMenu = () => {
   // });
 
   // console.log(resInfo?.itemCards);
+  const dumy="dummy data";
   console.log('printed inside restaurant menu');
   function keyfunc() {
     return Math.random().toString(36).substring(2);
@@ -51,10 +53,15 @@ const RestaurantMenu = () => {
           {cuisines?.join(",")} - {costForTwoMessage}
         </p>
      {/* categorian accodion*/}
-     {categories.map((category)=>{
+     {categories.map((category,index)=>{
       // console.log(category);
+      // controlled component
       return(
-       <RestaurantCategories key={keyfunc()}  data={category}/>);
+       <RestaurantCategories key={keyfunc()}  data={category}
+       showItems={index === showIndex ? true:false}
+       setShowIndex={()=>setShowIndex(index)}
+       dummy={dumy}
+       />);
      })}
         
       

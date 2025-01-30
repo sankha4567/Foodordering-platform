@@ -10,3 +10,12 @@ we are not making any network call when we move one part to another part.when we
 
 )
 -server side routing(you have index.html,contact.html,about.html.if we click on anchor tag it reloads the whole page.it makes the network call about.html fetches out about.html.renders it to the webpage)
+....
+
+#Redux toolkit
+-Install @reduxjs/toolkit and react-redux
+-Build our store
+-connect our store to our app
+-Slice(cart slice)
+-dispatch (action)
+-Selector

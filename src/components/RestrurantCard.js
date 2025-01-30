@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 // const RestrurantCard = (props) => {
 //   const {resData} =props;
@@ -26,7 +28,7 @@ const RestrurantCard = (props) => {
   const { resData } = props;
   // console.log(resData); 
   // console.log(resData?.card?.card?.info); 
-
+const {loggedInUser} = useContext(UserContext);
 
   const {id,cloudinaryImageId, name, cuisines, avgRating, costForTwo, slaString } =
   resData?.info;
@@ -49,6 +51,8 @@ const RestrurantCard = (props) => {
       </h4>
       <h4>{costForTwo}</h4>
       <h4>{slaString}</h4>
+     
+      {/* only the data you use multiple places we put it inside the props.not all the data so props is also needed */}
     </div>
     
   );

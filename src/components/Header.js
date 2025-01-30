@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
   const [btnName,setbtnName]=useState("Login");
@@ -13,7 +15,11 @@ const onlineStatus=useOnlineStatus();
   // use effect has two arguments one is call back function another is dependency array.useeffect hook is executed every time our page renders.we can  change the behaviour of use effect by using dependency array
   // if the dependency array is empty useEffect is called only on the initial render
   // if we put anything in dependency arry it only called when the dependency changes it will be called every time btnNameReact value is updated
-  
+  const {loggedInUser}=useContext(UserContext);
+  console.log(loggedInUser);
+  // Subscribing to the store by using Selector
+  const cartItems=useSelector((store)=>store.cart.items);
+  console.log(cartItems);
   return (
     <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-100">
       <div className="logo-container">
@@ -42,13 +48,18 @@ const onlineStatus=useOnlineStatus();
             <Link to="/contact">Contact Us</Link></li>
             <li className="px-4">
             <Link to="/grocery">Grocery</Link></li>
-          <li className="px-4">Cart</li>
+          <li className="px-4 font-bold text-xl"
+          >
+            <Link to="/cart">Cart -({cartItems?.length}items)</Link>
+            
+            </li>
           <button className="px-4" onClick={()=>{
             btnName === "Login" ?
               setbtnName("Logout") :
             
             setbtnName("Login");
           }}>{btnName}</button>
+          <li className="px-4 font-bold">{loggedInUser}</li>
         </ul>
       </div>
     </div>

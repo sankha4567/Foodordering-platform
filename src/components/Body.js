@@ -1,10 +1,11 @@
 import RestrurantCard,{withPromotedLabel} from "./RestrurantCard.js";
 import resObj from "../utils/mockdata.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
 import { bodydata } from "./Bodymock.js";
+import UserContext from "../utils/UserContext.js";
 function getRandomNumber() {
   return Math.floor(Math.random() * 1000) + 1;
 }
@@ -48,6 +49,7 @@ const Body = () => {
 // const listofRestaurant=useRestaurantList();
 // setListofRestaurants(listofRestaurant);
 // setFilteredRestaurant(listofRestaurant);
+const {loggedInUser,setUserInfo} = useContext(UserContext);
 console.log(listofRestaurants);
 const onlineStatus=useOnlineStatus();
 
@@ -118,7 +120,10 @@ else{
           Top Rated Restrurant
         </button>
         </div>
-       
+        <div className="search m-4 p-4 flex items-center">
+          <label>UserName:</label>
+          <input className="border border-black m-2" onChange={(e)=>setUserInfo(e.target.value)} value={loggedInUser}></input>
+          </div>
       </div>
       <div className="res-container flex flex-wrap">
         {filteredRestaurant?.map((restaurant) => (

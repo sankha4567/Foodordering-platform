@@ -1,4 +1,6 @@
 import React from "react";
+// import { useContext } from "react";
+
 class UserClass extends React.Component{
  
   constructor(props){
@@ -19,18 +21,18 @@ class UserClass extends React.Component{
     }
     // console.log(this.props.name + "child constructor");
   }
-   componentDidMount(){
-    // const data=await fetch("https://api.github.com/users/sankha4567");
-    // const json=await data.json();
-    // this.setState(
-    //   {
-    //     userInfo: json,
-    //   }
-    // );
-    // console.log(data);
-//     const data = await fetch("https://api.github.com/rate_limit");
-// const json = await data.json();
-// console.log(json);
+ 
+   async componentDidMount(){
+    const data=await fetch("https://api.github.com/users/sankha4567");
+    const json=await data.json();
+    this.setState(
+      {
+        userInfo: json,
+      }
+    );
+    console.log(data);
+   
+  console.log(json);
   // this.timer=setInterval(()=>{
   //   console.log("react op")
   // },1000);
@@ -51,6 +53,7 @@ class UserClass extends React.Component{
     const {name,location,avatar_url} = this.state.userInfo;
    
     // console.log(name + "child render");
+   
     return(
       
       <div className="user-card">
@@ -66,6 +69,7 @@ class UserClass extends React.Component{
       <h2>Name:{name}</h2>
       <h3>Location:{location}</h3>
       <h4>Contact:@Sankha.7</h4>
+      
       </div>
     );
   }
