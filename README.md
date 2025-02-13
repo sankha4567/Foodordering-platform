@@ -1,21 +1,21 @@
-#namaste-react####
-#React Hooks
-(Normal js utility functions)
--useState()-superpowerful state variables in react
--useEffect()
-#two types of routing
--client side routing(
-we are not making any network call when we move one part to another part.when we load the page for first time it then also contains About us component
-.when we try to go About us page it just load  the contact us part doesnot make any network call.
 
-)
--server side routing(you have index.html,contact.html,about.html.if we click on anchor tag it reloads the whole page.it makes the network call about.html fetches out about.html.renders it to the webpage)
-....
+🍔 Food Ordering Platform - React Application 🚀
 
-#Redux toolkit
--Install @reduxjs/toolkit and react-redux
--Build our store
--connect our store to our app
--Slice(cart slice)
--dispatch (action)
--Selector
+This food ordering platform is built using React, providing a seamless user experience for browsing restaurants, adding food items to the cart, and managing orders efficiently. The application includes real-time UI updates, dynamic routing, and state management, making it scalable for large-scale food ordering.
+
+🔹 Features
+✅ ✨ Shimmer Effect – Displays a skeleton loading effect before restaurant and menu items load for better UX.
+✅ 🌍 Dynamic Routing – Integrated React Router DOM to allow seamless navigation and clickable restaurant cards.
+✅ 🛒 State Management with Redux – Used React-Redux to store cart items efficiently for large-scale applications.
+✅ 🎨 TailwindCSS for UI Design – Built a responsive and modern interface for an intuitive user experience.
+
+🔹 Setup Instructions
+1️⃣ Clone the repository:
+git clone https://github.com/sankha4567/Foodordering-platform.git
+2️⃣ Navigate into the project folder:
+cd Foodordering-platform
+3️⃣ Install dependencies:
+npm install
+4️⃣ Run the project:
+npm run start
+
