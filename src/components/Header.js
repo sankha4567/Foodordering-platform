@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { LOGO_URL } from "../utils/constants";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../logo.jpg";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img className="h-12 w-12 object-contain" src={LOGO_URL} alt="logo" />
+          <img className="h-12 w-12 object-contain" src={logo} alt="logo" />
           <span className="hidden sm:block text-xs font-semibold text-gray-500 leading-tight">
             FOOD<br />ORDER
           </span>

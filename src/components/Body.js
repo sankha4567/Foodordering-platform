@@ -1,23 +1,26 @@
 import RestrurantCard, { withPromotedLabel } from "./RestrurantCard.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
 import { bodydata } from "./Bodymock.js";
+import UserContext from "../utils/UserContext.js";
 
 const Body = () => {
   const [listofRestaurants, setListofRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [topRatedActive, setTopRatedActive] = useState(false);
+  const [loading, setLoading] = useState(true);
   const RestaurantCardPromoted = withPromotedLabel(RestrurantCard);
+  const { loggedInUser, setUserInfo } = useContext(UserContext);
   const onlineStatus = useOnlineStatus();
 
   useEffect(() => {
-    const json = bodydata;
-    const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    const restaurants = bodydata?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     setListofRestaurants(restaurants);
     setFilteredRestaurant(restaurants);
+    setLoading(false);
   }, []);
 
   if (onlineStatus === false) {
@@ -30,7 +33,7 @@ const Body = () => {
     );
   }
 
-  if (listofRestaurants?.length === 0) return <Shimmer />;
+  if (loading) return <Shimmer />;
 
   const handleSearch = () => {
     const filtered = listofRestaurants.filter((res) =>
@@ -86,12 +89,19 @@ const Body = () => {
           ★ Top Rated
         </button>
 
+        <div className="flex items-center gap-2 ml-auto">
+          <span className="text-sm text-gray-400 hidden sm:block">Hi,</span>
+          <input
+            className="border border-gray-200 rounded-xl px-3 py-1.5 text-sm min-w-[160px] focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+            onChange={(e) => setUserInfo(e.target.value)}
+            value={loggedInUser || ""}
+            placeholder="Your name"
+          />
+        </div>
       </div>
 
-      {/* Results count */}
       <p className="text-sm text-gray-500 mb-4">{filteredRestaurant?.length} restaurants found</p>
 
-      {/* Restaurant grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {filteredRestaurant?.map((restaurant) => (
           <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
@@ -108,7 +118,10 @@ const Body = () => {
         <div className="flex flex-col items-center justify-center py-20 gap-3">
           <span className="text-5xl">🍽️</span>
           <p className="text-gray-500 text-lg">No restaurants match your search</p>
-          <button className="text-orange-500 underline text-sm" onClick={() => { setSearchText(""); setFilteredRestaurant(listofRestaurants); setTopRatedActive(false); }}>
+          <button
+            className="text-orange-500 underline text-sm"
+            onClick={() => { setSearchText(""); setFilteredRestaurant(listofRestaurants); setTopRatedActive(false); }}
+          >
             Clear filters
           </button>
         </div>
