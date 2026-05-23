@@ -1,3 +1,37 @@
-node_modules
-.parcel-cache
-dist
+# Dependencies
+node_modules/
+
+# Parcel
+.parcel-cache/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Coverage
+coverage/
+
+# Misc HTML files not part of the project
+Complete_Interview_Guide.html
+Interview_Preparation.html
