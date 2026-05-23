@@ -1,148 +1,131 @@
-import RestrurantCard,{withPromotedLabel} from "./RestrurantCard.js";
-import resObj from "../utils/mockdata.js";
+import RestrurantCard, { withPromotedLabel } from "./RestrurantCard.js";
 import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
 import { bodydata } from "./Bodymock.js";
 import UserContext from "../utils/UserContext.js";
-function getRandomNumber() {
-  return Math.floor(Math.random() * 1000) + 1;
-}
+
 const Body = () => {
   const [listofRestaurants, setListofRestaurants] = useState([]);
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [topRatedActive, setTopRatedActive] = useState(false);
+  const RestaurantCardPromoted = withPromotedLabel(RestrurantCard);
+  const { loggedInUser, setUserInfo } = useContext(UserContext);
+  const onlineStatus = useOnlineStatus();
 
-  const[filteredRestaurant,setFilteredRestaurant] = useState([]);
-  const [searchText,setSearchText] = useState("");
-  const RestaurantCardPromoted= withPromotedLabel(RestrurantCard);
-  // console.log("body rendered");
-  // whenever state variable updates react triggers a reconciliation cycle(re renders the component)
-  //never create usestate inside loops,ifelse.state variale must be created inside the functional component  at the top most level
-  // if fails19*40 remove 41 42
-  useEffect(()=>{
-   fetchData();
-  },[]);
-  
-  const fetchData = async ()=>{
-    // const data = await fetch(
-    //   // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      
-    // );
-    // const json = await data.json();
-    // console.log("gybbbbk");
-    //  console.log(
-    //    json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+  useEffect(() => {
+    const json = bodydata;
+    const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    setListofRestaurants(restaurants);
+    setFilteredRestaurant(restaurants);
+  }, []);
 
-    // );
-    const json=bodydata;
-    setListofRestaurants(
-      // optional chaining:-
-      // json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurant( 
-      // json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-
-
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-  }
-// const listofRestaurant=useRestaurantList();
-// setListofRestaurants(listofRestaurant);
-// setFilteredRestaurant(listofRestaurant);
-const {loggedInUser,setUserInfo} = useContext(UserContext);
-console.log(listofRestaurants);
-const onlineStatus=useOnlineStatus();
-
-if(onlineStatus === false){
-  return <h1>Looks like you are Offline!!!!!!please check your Internet</h1>
-}
-
-
-else{
-
-
-
-
-  // when body function renders data will be rendered to page.useeffect callback function will be executed when body rendering is done
-  // asynchronous
-// function f(param1){
-//   let x=param1;
-//   function g(param2){
-//   x=param2;
-//   }
-//   return [x,g];
-// }
-// let[var1,var2]=f("sankha");
-// var2("subhra");
-// let arr=[1,2,3,4,5];
-// let [var1,var2]=arr;
-// conditional rendering
-
-  return listofRestaurants?.length === 0 ? (
-  <Shimmer/>
-  ) : (
-    
-    <div className="body">
-      <div className="filter flex">
-        <div className="search m-4 p-4">
-          <input className="bg-green-50  border border-solid border-black" type="text" value={searchText}
-          onChange={(e)=>{
-            setSearchText(e.target.value);
-          }}
-          >
-
-          </input>
-          <button className = "px-4 py-2 m-4 bg-green-100 rounded-lg" onClick={()=>{
-            // input text
-            const filteredlist=listofRestaurants?.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()));
-            // now if we add some pattern to search it will try to search based on the filtered ones to fix thisbugggg
-            setFilteredRestaurant(filteredlist);
-            console.log(searchText);
-          }}>Search</button>
-        </div>
-        <div className="search m-4 p-4 flex items-center">
-        <button
-          className="filter-btn px-4 py-2 m-4 bg-gray-100 rounded-lg"
-          onClick={() => {
-            // i update it was listofRestaurants to filteredRestaurant if i do it top rated to search wroking and vice versa.but when we do search then click top rated fine working.but when we empty the search box and search not the updation happens.
-            const filteredlist = listofRestaurants?.filter(
-              (res) => res.info.avgRating > 4.3
-            );
-             console.log(filteredlist);
-            // setListofRestaurants(filteredlist);
-            //extra line
-             setFilteredRestaurant(filteredlist);
-          }}
-          // onMouseMove={() => {
-          //   console.log("hey you");
-          // }}
-        >
-          Top Rated Restrurant
-        </button>
-        </div>
-        <div className="search m-4 p-4 flex items-center">
-          <label>UserName:</label>
-          <input className="border border-black m-2" onChange={(e)=>setUserInfo(e.target.value)} value={loggedInUser}></input>
-          </div>
+  if (onlineStatus === false) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <span className="text-6xl">📡</span>
+        <h1 className="text-2xl font-bold text-gray-700">You are Offline</h1>
+        <p className="text-gray-500">Please check your internet connection</p>
       </div>
-      <div className="res-container flex flex-wrap">
+    );
+  }
+
+  if (listofRestaurants?.length === 0) return <Shimmer />;
+
+  const handleSearch = () => {
+    const filtered = listofRestaurants.filter((res) =>
+      res.info.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredRestaurant(filtered);
+    setTopRatedActive(false);
+  };
+
+  const handleTopRated = () => {
+    if (topRatedActive) {
+      setFilteredRestaurant(listofRestaurants);
+      setTopRatedActive(false);
+    } else {
+      setFilteredRestaurant(listofRestaurants.filter((res) => res.info.avgRating > 4.3));
+      setTopRatedActive(true);
+    }
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      {/* Filter bar */}
+      <div className="flex flex-wrap items-center gap-3 mb-8 bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+        <div className="flex items-center flex-1 min-w-[200px] border border-gray-300 rounded-xl overflow-hidden focus-within:border-orange-400 focus-within:ring-2 focus-within:ring-orange-100 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 ml-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            className="w-full px-3 py-2 text-sm outline-none bg-transparent"
+            type="text"
+            placeholder="Search restaurants..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          />
+        </div>
+
+        <button
+          className="px-5 py-2 bg-orange-500 text-white text-sm font-semibold rounded-xl hover:bg-orange-600 active:scale-95 transition-all"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
+
+        <button
+          className={`px-5 py-2 text-sm font-semibold rounded-xl border-2 transition-all active:scale-95 ${
+            topRatedActive
+              ? "bg-orange-500 text-white border-orange-500"
+              : "bg-white text-orange-500 border-orange-500 hover:bg-orange-50"
+          }`}
+          onClick={handleTopRated}
+        >
+          ★ Top Rated
+        </button>
+
+        <div className="flex items-center gap-2 ml-auto">
+          <label className="text-sm text-gray-500 hidden sm:block">Hi,</label>
+          <input
+            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm w-36 focus:outline-none focus:border-orange-400"
+            onChange={(e) => setUserInfo(e.target.value)}
+            value={loggedInUser}
+            placeholder="Your name"
+          />
+        </div>
+      </div>
+
+      {/* Results count */}
+      <p className="text-sm text-gray-500 mb-4">{filteredRestaurant?.length} restaurants found</p>
+
+      {/* Restaurant grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {filteredRestaurant?.map((restaurant) => (
-          <Link 
-          key={restaurant.info.id}
-          to={"/restaurants/" + restaurant.info.id}>
-            {
-              restaurant.info.promoted ?( <RestaurantCardPromoted resData={restaurant}/>):(<RestrurantCard
-             
-            
-              resData={restaurant} 
-            /> )
-            }
-            
-            </Link>
+          <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+            {restaurant.info.promoted ? (
+              <RestaurantCardPromoted resData={restaurant} />
+            ) : (
+              <RestrurantCard resData={restaurant} />
+            )}
+          </Link>
         ))}
       </div>
+
+      {filteredRestaurant?.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-20 gap-3">
+          <span className="text-5xl">🍽️</span>
+          <p className="text-gray-500 text-lg">No restaurants match your search</p>
+          <button className="text-orange-500 underline text-sm" onClick={() => { setSearchText(""); setFilteredRestaurant(listofRestaurants); setTopRatedActive(false); }}>
+            Clear filters
+          </button>
+        </div>
+      )}
     </div>
   );
-}
 };
+
 export default Body;

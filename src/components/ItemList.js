@@ -1,45 +1,56 @@
 import { useDispatch } from "react-redux";
 import { CDN_URL } from "../utils/constants";
 import { addItem } from "../utils/cartSlice";
-const ItemList = ({ items,dummy }) => {
-  // props driling
-  // console.log(dummy);
-  const dispatch=useDispatch();
-const handleAddButton = (item)=>{
-  // disptch an action
-  dispatch(addItem(item));
-  // {
-  //   //it will create an object
-  //   payload:"pizza"
-  // }
 
-}
+const ItemList = ({ items }) => {
+  const dispatch = useDispatch();
+
+  const handleAddButton = (item) => {
+    dispatch(addItem(item));
+  };
+
   return (
-    <div>
-      {items.map(function (item) {
-        
-        return (
-          <div key={item.card.info.id} className="p-2 m-2 border-b-2 border-gray-200 text-left flex justify-between">
-            
-            <div className="w-9/12">
-           <div className="py-2">
-            
-            <span>{item.card.info.name}</span>
-           <span>  - ₹ {Number(item.card.info.price/100) || 300}
+    <div className="divide-y divide-gray-100">
+      {items?.map((item) => {
+        const info = item.card.info;
+        const price = info.price ? info.price / 100 : info.defaultPrice / 100 || 0;
+        const isVeg = info.itemAttribute?.vegClassifier === "VEG";
 
-           </span>
-           
-           </div>
-           <p className="text-xs">{item.card.info.description}</p>
-          </div>
-          <div className="w-3/12 p-4 ">
-            <div className="absolute">
-            <button className="p-2 bg-orange-300 shadow-lg mx-16 text-white rounded-xl" onClick={
-             ()=> handleAddButton(item)
-            }>Add</button> 
+        return (
+          <div key={info.id} className="flex items-start gap-3 p-4 hover:bg-gray-50 transition-colors">
+            {/* Veg / Non-veg indicator */}
+            <div className="shrink-0 mt-1">
+              <div className={`w-3.5 h-3.5 border-2 rounded-sm flex items-center justify-center ${isVeg ? "border-green-600" : "border-red-600"}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${isVeg ? "bg-green-600" : "bg-red-600"}`} />
+              </div>
             </div>
-            
-            <img src={CDN_URL + item.card.info.imageId} className="w-full"></img>
+
+            {/* Item details */}
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-sm text-gray-900 leading-snug">{info.name}</p>
+              <p className="text-sm font-medium text-gray-700 mt-0.5">₹ {price.toFixed(0)}</p>
+              {info.description && (
+                <p className="text-xs text-gray-400 mt-1 line-clamp-2">{info.description}</p>
+              )}
+            </div>
+
+            {/* Image + Add button */}
+            <div className="shrink-0 relative w-24 h-20">
+              {info.imageId ? (
+                <img
+                  src={CDN_URL + info.imageId}
+                  alt={info.name}
+                  className="w-24 h-20 object-cover rounded-xl"
+                />
+              ) : (
+                <div className="w-24 h-20 bg-gray-100 rounded-xl" />
+              )}
+              <button
+                className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white text-green-600 border-2 border-green-500 text-xs font-bold px-4 py-0.5 rounded-lg shadow hover:bg-green-500 hover:text-white transition-colors whitespace-nowrap"
+                onClick={() => handleAddButton(item)}
+              >
+                ADD
+              </button>
             </div>
           </div>
         );

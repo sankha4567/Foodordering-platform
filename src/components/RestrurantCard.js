@@ -1,73 +1,54 @@
-import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
-import UserContext from "../utils/UserContext";
 
-// const RestrurantCard = (props) => {
-//   const {resData} =props;
-//   const {name,
-//     cuisines,
-//     avgRating,
-//     cloudinaryImageId} = resData?.card?.card?.info || {};
-//   return (
-//     <div
-//       className="res-card"
-//       style={{
-//         backgroundColor: "#f0f0f0",
-//       }}
-//     >
-//       <img className="res-logo" src={CDN_URL + cloudinaryImageId} alt="res-logo"></img>
-//       <h3>{name}</h3>
-//       <h4>{cuisines?.join(" , ")}</h4>
-//       <h4>{avgRating}⭐🍽️</h4>
-//       <h4>{`${resData?.card?.card?.info?.sla?.deliveryTime} minutes`}</h4>
-//     </div>
-//   );
-// };
 const RestrurantCard = (props) => {
-  // console.log("dc");
   const { resData } = props;
-  // console.log(resData); 
-  // console.log(resData?.card?.card?.info); 
-const {loggedInUser} = useContext(UserContext);
+  const { cloudinaryImageId, name, cuisines, avgRating, costForTwo, slaString } =
+    resData?.info;
 
-  const {id,cloudinaryImageId, name, cuisines, avgRating, costForTwo, slaString } =
-  resData?.info;
-    // console.log(resData?.card?.card?.info);
-    // console.log(id);
   return (
-   
+    <div
+      className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer overflow-hidden border border-gray-100 h-full"
+      data-testid="resCard"
+    >
+      <div className="relative">
+        <img
+          className="w-full h-36 object-cover"
+          alt={name}
+          src={CDN_URL + cloudinaryImageId}
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/60 to-transparent" />
+        {costForTwo && (
+          <span className="absolute bottom-2 left-2 text-white text-xs font-semibold">
+            {costForTwo}
+          </span>
+        )}
+      </div>
 
-    
-    <div className="m-4 p-4 w-[250px] border border-solid border-black h-[360px] bg-orange-100 rounded-lg hover:bg-gray-400" data-testid="resCard">
-      <img
-        className="h-36 w-full rounded-lg"
-        alt="food-logo"
-        src={CDN_URL + cloudinaryImageId}
-      />
-      <h3 className="font-bold py-2.5 px-2.5 text-lg">{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>
-        <span>★ {avgRating} </span> &nbsp; Ratings
-      </h4>
-      <h4>{costForTwo}</h4>
-      <h4>{slaString}</h4>
-     
-      {/* only the data you use multiple places we put it inside the props.not all the data so props is also needed */}
+      <div className="p-3">
+        <h3 className="font-bold text-gray-900 text-sm truncate">{name}</h3>
+        <p className="text-gray-500 text-xs truncate mt-0.5">{cuisines?.join(", ")}</p>
+        <div className="flex items-center justify-between mt-2">
+          <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
+            ★ {avgRating}
+          </span>
+          {slaString && (
+            <span className="text-xs text-gray-500">{slaString}</span>
+          )}
+        </div>
+      </div>
     </div>
-    
   );
 };
-// higher order component
-// input rescard output promoted res card
-export const withPromotedLabel = (RestrurantCard) =>{
-  return (props)=>{
-    return (
-      <div>
-   <label className="absolute bg-black text-white m-2 p-2 rounded-lg">Promoted</label>
-   <RestrurantCard {...props}/>
-   </div>
-    );
-  }
-}
-export default RestrurantCard;
 
+export const withPromotedLabel = (RestrurantCard) => {
+  return (props) => (
+    <div className="relative h-full">
+      <span className="absolute top-2 left-2 z-10 bg-black text-white text-xs font-bold px-2 py-0.5 rounded-full">
+        Promoted
+      </span>
+      <RestrurantCard {...props} />
+    </div>
+  );
+};
+
+export default RestrurantCard;

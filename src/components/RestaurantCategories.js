@@ -1,35 +1,30 @@
- import { useState } from "react";
 import ItemList from "./ItemList";
 
-const RestaurantCategories=({...props})=>{
-  const[fiture,setFiture]=useState(true);
-  // console.log(props);
-  const obj=props?.data;
-  const showItems=props?.showItems;
-  const setShowIndex=props.setShowIndex;
-  const dummy=props.dummy;
-  // console.log("afetett");
-  // console.log(obj?.itemCards?.length);
-  function handleclick(){
-   setShowIndex();
-   setFiture(!fiture);
-    // console.log("clicked");
-  }
-  return(
-    <div>
-      {/* Header */}
+const RestaurantCategories = ({ data, showItems, setShowIndex }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <button
+        className="w-full flex justify-between items-center p-4 hover:bg-gray-50 transition-colors text-left"
+        onClick={setShowIndex}
+      >
+        <span className="font-bold text-gray-800">
+          {data.title}
+          <span className="ml-2 text-sm font-normal text-gray-400">
+            ({data?.itemCards?.length} items)
+          </span>
+        </span>
+        <span className={`text-gray-400 transition-transform duration-200 ${showItems ? "rotate-180" : ""}`}>
+          ▼
+        </span>
+      </button>
 
-    <div className="w-6/12 bg-gray-50 shadow-lg p-4 mx-auto my-4 ">
-    <div className="flex justify-between cursor-pointer" onClick={handleclick}>
-      <span className="font-bold text-lg">{obj.title}({obj?.itemCards?.length})</span>
-    <span>⬇️</span>
-    </div>
-   {showItems && fiture && <ItemList items={obj?.itemCards} dummy={dummy}></ItemList>}
-    </div>
-    
-    {/* Accordian body */}
-    
+      {showItems && (
+        <div className="border-t border-gray-100">
+          <ItemList items={data?.itemCards} />
+        </div>
+      )}
     </div>
   );
-}
+};
+
 export default RestaurantCategories;
