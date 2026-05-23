@@ -2,10 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import ItemList from "./ItemList";
 import { clearCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const subtotal = cartItems.reduce((sum, item) => {
     const price = item.card.info.price
@@ -17,6 +19,22 @@ const Cart = () => {
   const gst = subtotal * 0.05;
   const deliveryFee = subtotal > 0 ? 40 : 0;
   const total = subtotal + gst + deliveryFee;
+
+  if (orderPlaced) {
+    return (
+      <div className="max-w-lg mx-auto px-4 py-20 flex flex-col items-center gap-4 text-center">
+        <span className="text-7xl">🎉</span>
+        <h2 className="text-2xl font-bold text-gray-800">Order Placed Successfully!</h2>
+        <p className="text-gray-500">Your food is being prepared. It will arrive shortly.</p>
+        <Link
+          to="/"
+          className="mt-2 px-6 py-2.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors"
+        >
+          Back to Home
+        </Link>
+      </div>
+    );
+  }
 
   if (cartItems?.length === 0) {
     return (
@@ -80,7 +98,10 @@ const Cart = () => {
             </div>
           </div>
 
-          <button className="mt-5 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors active:scale-95">
+          <button
+            className="mt-5 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors active:scale-95"
+            onClick={() => { dispatch(clearCart()); setOrderPlaced(true); }}
+          >
             Proceed to Payment
           </button>
 

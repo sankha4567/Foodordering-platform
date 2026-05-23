@@ -1,10 +1,9 @@
 import RestrurantCard, { withPromotedLabel } from "./RestrurantCard.js";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
 import { bodydata } from "./Bodymock.js";
-import UserContext from "../utils/UserContext.js";
 
 const Body = () => {
   const [listofRestaurants, setListofRestaurants] = useState([]);
@@ -12,7 +11,6 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [topRatedActive, setTopRatedActive] = useState(false);
   const RestaurantCardPromoted = withPromotedLabel(RestrurantCard);
-  const { loggedInUser, setUserInfo } = useContext(UserContext);
   const onlineStatus = useOnlineStatus();
 
   useEffect(() => {
@@ -88,15 +86,6 @@ const Body = () => {
           ★ Top Rated
         </button>
 
-        <div className="flex items-center gap-2 ml-auto">
-          <label className="text-sm text-gray-500 hidden sm:block">Hi,</label>
-          <input
-            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm w-36 focus:outline-none focus:border-orange-400"
-            onChange={(e) => setUserInfo(e.target.value)}
-            value={loggedInUser}
-            placeholder="Your name"
-          />
-        </div>
       </div>
 
       {/* Results count */}

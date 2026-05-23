@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link, useLocation } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -6,7 +6,6 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 export const Header = () => {
-  const [btnName, setbtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
   const { loggedInUser } = useContext(UserContext);
   const cartItems = useSelector((store) => store.cart.items);
@@ -42,7 +41,6 @@ export const Header = () => {
           {navLink("/", "Home")}
           {navLink("/about", "About")}
           {navLink("/contact", "Contact")}
-          {navLink("/grocery", "Grocery")}
 
           <Link to="/cart" className="relative flex items-center gap-1 px-3 py-1 text-sm font-medium text-gray-700 hover:text-orange-500 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,13 +53,6 @@ export const Header = () => {
               </span>
             )}
           </Link>
-
-          <button
-            className="px-4 py-1.5 rounded-full border-2 border-orange-500 text-orange-500 text-sm font-semibold hover:bg-orange-500 hover:text-white transition-colors"
-            onClick={() => setbtnName(btnName === "Login" ? "Logout" : "Login")}
-          >
-            {btnName}
-          </button>
 
           {loggedInUser && (
             <span className="hidden md:flex items-center gap-1 px-3 py-1 bg-orange-50 rounded-full text-sm font-medium text-orange-700">

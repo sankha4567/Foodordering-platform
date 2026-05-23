@@ -1,5 +1,5 @@
 import Shimmer from "./Shimmer";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategories from "./RestaurantCategories";
 import { useState } from "react";
@@ -21,6 +21,15 @@ const RestaurantMenu = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
+      <Link
+        to="/"
+        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-orange-500 transition-colors mb-5"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Restaurants
+      </Link>
       {/* Restaurant Hero */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
         {cloudinaryImageId && (
