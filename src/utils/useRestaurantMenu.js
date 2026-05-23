@@ -14,9 +14,8 @@ const useRestaurantMenu = (resId) => {
 
   async function fetchData() {
     try {
-      const res = await fetch(
-        "/api/v1/restaurants/" + resId
-      );
+      const base = process.env.PARCEL_PUBLIC_API_BASE || "";
+      const res = await fetch(base + "/api/v1/restaurants/" + resId);
 
       const json1 = await res.json();
       console.log("inside res menu 1");

@@ -18,7 +18,7 @@ app.get("/api/v1/restaurants/:resId", async (req, res) => {
   console.log(users);
   const restaurant=users.restuarants.find(user => String(user.card.card.info.id) === String(resId));
   if(restaurant){
-    return res.json(JSON.stringify(restaurant));
+    return res.json(restaurant);
     
     
   }

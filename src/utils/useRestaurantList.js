@@ -6,7 +6,8 @@ useEffect(()=>{
   },[]);
   
   const fetchData = async ()=>{
-    const data = await fetch("/api/v1/users");
+    const base = process.env.PARCEL_PUBLIC_API_BASE || "";
+    const data = await fetch(base + "/api/v1/users");
     const json = await data.json();
     setListofRestaurants(json?.restuarants ?? []);
 }

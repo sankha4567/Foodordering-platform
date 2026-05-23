@@ -9,7 +9,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
   const[showIndex,setShowIndex]=useState(null);
   let dataReceived = useRestaurantMenu(resId);
-  const resInfo=JSON.parse(dataReceived);
+  const resInfo = dataReceived;
   // console.log(resId+" passed to hook");
   // console.log(resInfo?.card);
   // console.log(typeof resInfo);
